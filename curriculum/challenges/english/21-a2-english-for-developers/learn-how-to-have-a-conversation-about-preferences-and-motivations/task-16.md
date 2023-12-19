@@ -23,31 +23,31 @@ What does Brian find challenging?
 
 ## --answers--
 
-Loose schedules
+`Loose schedules`
 
 ### --feedback--
 
-It imply having a flexible or open timetable, which is the opposite of the context.
+This phrase implies having a flexible or open timetable, which is the opposite of the context.
 
 ---
 
-Flexible deadlines
+`Flexible deadlines`
 
 ### --feedback--
 
-It suggest having adjustable timeframes for completing tasks, while Brian's challenge is with the strictness of the deadlines.
+This phrase suggests having adjustable timeframes for completing tasks, while Brian's challenge is with the strictness of the deadlines.
 
 ---
 
-Tight deadlines
+`Tight deadlines`
 
 ---
 
-Ample time
+`Ample time`
 
 ### --feedback--
 
-It means having plenty of time, which is different from what Brian means.
+This phrase means having plenty of time, which is different from what Brian means.
 
 ## --video-solution--
 

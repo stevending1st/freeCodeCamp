@@ -43,4 +43,4 @@ This word is a preposition used to compare or illustrate a similarity to somethi
 
 ### --feedback--
 
-This word is the present participle form of 'run', used here to express the action of moving quickly or being in a hurry.
+This word is the present participle form of a verb, used here to express the action of moving quickly or being in a hurry.

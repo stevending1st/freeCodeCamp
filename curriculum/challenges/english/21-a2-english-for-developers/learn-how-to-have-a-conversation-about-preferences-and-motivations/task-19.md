@@ -21,7 +21,7 @@ Organizing thoughts
 
 ### --feedback--
 
-It suggests arranging ideas or concepts in a systematic manner, which is not the same the word.
+It suggests arranging ideas or concepts in a systematic manner, which is not the same as the word.
 
 ---
 
