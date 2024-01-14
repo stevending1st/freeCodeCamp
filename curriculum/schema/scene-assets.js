@@ -1,5 +1,6 @@
 const availableCharacters = [
   'Alice',
+  'Amy',
   'Anna',
   'Bob',
   'Brian',
@@ -9,6 +10,7 @@ const availableCharacters = [
   'Linda',
   'Lisa',
   'Maria',
+  'Mark',
   'Sarah',
   'Sophie',
   'Tom'
@@ -85,8 +87,11 @@ const availableAudios = [
   '1.3-5.mp3'
 ];
 
+const availableAlignments = ['left', 'center', 'right'];
+
 module.exports = {
   availableCharacters,
   availableBackgrounds,
-  availableAudios
+  availableAudios,
+  availableAlignments
 };

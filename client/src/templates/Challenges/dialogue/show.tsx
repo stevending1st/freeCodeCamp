@@ -1,5 +1,4 @@
 // Package Utilities
-import { Button } from '@freecodecamp/react-bootstrap';
 import { graphql } from 'gatsby';
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
@@ -10,7 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import type { Dispatch } from 'redux';
 import { createSelector } from 'reselect';
-import { Container, Col, Row } from '@freecodecamp/ui';
+import { Container, Col, Row, Button } from '@freecodecamp/ui';
 
 // Local Utilities
 import Spacer from '../../../components/helpers/spacer';
@@ -18,6 +17,8 @@ import LearnLayout from '../../../components/layouts/learn';
 import { ChallengeNode, ChallengeMeta } from '../../../redux/prop-types';
 import Hotkeys from '../components/hotkeys';
 import CompletionModal from '../components/completion-modal';
+import ChallengeTitle from '../components/challenge-title';
+import ChallengeHeading from '../components/challenge-heading';
 import HelpModal from '../components/help-modal';
 import PrismFormatted from '../components/prism-formatted';
 import {
@@ -181,6 +182,7 @@ class ShowDialogue extends Component<ShowDialogueProps, ShowDialogueState> {
             block,
             fields: { blockName },
             assignments,
+            translationPending,
             scene
           }
         }
@@ -189,6 +191,7 @@ class ShowDialogue extends Component<ShowDialogueProps, ShowDialogueState> {
       pageContext: {
         challengeMeta: { nextChallengePath, prevChallengePath }
       },
+      isChallengeCompleted,
       t
     } = this.props;
 
@@ -211,16 +214,23 @@ class ShowDialogue extends Component<ShowDialogueProps, ShowDialogueState> {
             <Row>
               <Col md={8} mdOffset={2} sm={10} smOffset={1} xs={12}>
                 <Spacer size='medium' />
-                <h2>{title}</h2>
+
+                <ChallengeTitle
+                  isCompleted={isChallengeCompleted}
+                  translationPending={translationPending}
+                >
+                  {title}
+                </ChallengeTitle>
                 <PrismFormatted className={'line-numbers'} text={description} />
                 <Spacer size='medium' />
               </Col>
 
-              <Scene scene={scene} />
+              {scene && <Scene scene={scene} />}
 
               <Col md={8} mdOffset={2} sm={10} smOffset={1} xs={12}>
+                <Spacer size='medium' />
                 <ObserveKeys>
-                  <h2>{t('learn.assignments')}</h2>
+                  <ChallengeHeading heading={t('learn.assignments')} />
                   <div className='video-quiz-options'>
                     {assignments.map((assignment, index) => (
                       <label className='video-quiz-option-label' key={index}>
@@ -262,20 +272,14 @@ class ShowDialogue extends Component<ShowDialogueProps, ShowDialogueState> {
                 <Spacer size='medium' />
                 <Button
                   block={true}
-                  bsSize='large'
-                  bsStyle='primary'
+                  variant='primary'
                   disabled={!this.state.allAssignmentsCompleted}
                   onClick={() => this.handleSubmit()}
                 >
                   {t('buttons.submit')}
                 </Button>
-                <Button
-                  block={true}
-                  bsSize='large'
-                  bsStyle='primary'
-                  className='btn-invert'
-                  onClick={openHelpModal}
-                >
+                <Spacer size='xxSmall' />
+                <Button block={true} variant='primary' onClick={openHelpModal}>
                   {t('buttons.ask-for-help')}
                 </Button>
                 <Spacer size='large' />
