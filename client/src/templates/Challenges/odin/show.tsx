@@ -1,5 +1,4 @@
 // Package Utilities
-import { Button } from '@freecodecamp/react-bootstrap';
 import { graphql } from 'gatsby';
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
@@ -10,7 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import type { Dispatch } from 'redux';
 import { createSelector } from 'reselect';
-import { Container, Col, Row } from '@freecodecamp/ui';
+import { Container, Col, Row, Button } from '@freecodecamp/ui';
 
 // Local Utilities
 import Loader from '../../../components/helpers/loader';
@@ -23,6 +22,8 @@ import CompletionModal from '../components/completion-modal';
 import HelpModal from '../components/help-modal';
 import Scene from '../components/scene/scene';
 import PrismFormatted from '../components/prism-formatted';
+import ChallengeTitle from '../components/challenge-title';
+import ChallengeHeading from '../components/challenge-heading';
 import {
   challengeMounted,
   updateChallengeMeta,
@@ -219,6 +220,7 @@ class ShowOdin extends Component<ShowOdinProps, ShowOdinState> {
             question: { text, answers, solution },
             assignments,
             audioPath,
+            translationPending,
             scene
           }
         }
@@ -228,7 +230,8 @@ class ShowOdin extends Component<ShowOdinProps, ShowOdinState> {
       pageContext: {
         challengeMeta: { nextChallengePath, prevChallengePath }
       },
-      t
+      t,
+      isChallengeCompleted
     } = this.props;
 
     const blockNameTitle = `${t(
@@ -277,12 +280,16 @@ class ShowOdin extends Component<ShowOdinProps, ShowOdinState> {
               )}
               <Col md={8} mdOffset={2} sm={10} smOffset={1} xs={12}>
                 <Spacer size='medium' />
-                <h2>{title}</h2>
+                <ChallengeTitle
+                  isCompleted={isChallengeCompleted}
+                  translationPending={translationPending}
+                >
+                  {title}
+                </ChallengeTitle>
                 <PrismFormatted className={'line-numbers'} text={description} />
+                <Spacer size='medium' />
                 {audioPath && (
                   <>
-                    <Spacer size='small' />
-                    <Spacer size='small' />
                     {/* TODO: Add tracks for audio elements */}
                     {/* eslint-disable-next-line jsx-a11y/media-has-caption*/}
                     <audio className='audio' controls>
@@ -291,18 +298,22 @@ class ShowOdin extends Component<ShowOdinProps, ShowOdinState> {
                         type='audio/mp3'
                       />
                     </audio>
+                    <Spacer size='medium' />
                   </>
                 )}
-                <Spacer size='medium' />
               </Col>
 
-              {scene && <Scene scene={scene} />}
+              {scene && (
+                <>
+                  <Scene scene={scene} /> <Spacer size='medium' />
+                </>
+              )}
 
               <Col md={8} mdOffset={2} sm={10} smOffset={1} xs={12}>
                 <ObserveKeys>
                   {assignments.length > 0 && (
                     <>
-                      <h2>{t('learn.assignments')}</h2>
+                      <ChallengeHeading heading={t('learn.assignments')} />
                       <div className='video-quiz-options'>
                         {assignments.map((assignment, index) => (
                           <label
@@ -332,7 +343,7 @@ class ShowOdin extends Component<ShowOdinProps, ShowOdinState> {
                     </>
                   )}
 
-                  <h2>{t('learn.question')}</h2>
+                  <ChallengeHeading heading={t('learn.question')} />
                   <PrismFormatted className={'line-numbers'} text={text} />
                   <div className='video-quiz-options'>
                     {answers.map(({ answer }, index) => (
@@ -388,9 +399,8 @@ class ShowOdin extends Component<ShowOdinProps, ShowOdinState> {
                 <Spacer size='medium' />
                 <Button
                   block={true}
-                  bsSize='large'
-                  bsStyle='primary'
-                  data-playwright-test-label='check-answer-button'
+                  size='medium'
+                  variant='primary'
                   onClick={() =>
                     this.handleSubmit(
                       solution,
@@ -401,12 +411,11 @@ class ShowOdin extends Component<ShowOdinProps, ShowOdinState> {
                 >
                   {t('buttons.check-answer')}
                 </Button>
+                <Spacer size='xxSmall' />
                 <Button
                   block={true}
-                  bsSize='large'
-                  bsStyle='primary'
-                  className='btn-invert'
-                  data-playwright-test-label='ask-for-help-button'
+                  size='medium'
+                  variant='primary'
                   onClick={openHelpModal}
                 >
                   {t('buttons.ask-for-help')}
